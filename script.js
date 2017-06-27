@@ -1,0 +1,14 @@
+$(document).ready(function(){
+
+makeGrid()
+})
+
+var makeGrid  = (function () {
+    return function () {
+      var row = 9;
+      for (var i=0;i<row;i++){
+        $(".divTableBody").append("<div class='divTableRow'></div>") }
+      for (var i=0;i<row;i++){
+        $(".divTableRow").append("<div class='divTableCell'></div>") }
+    };
+})();
