@@ -1,6 +1,7 @@
 $(document).ready(function(){
-
 makeGrid()
+for (var i=0;i<10;i++){
+addMines();}
 })
 
 var makeGrid  = (function () {
@@ -13,5 +14,12 @@ var makeGrid  = (function () {
         $(".divTableCell").each( function(i) {
               $(this).attr('data', (i+1));
             });
+    };
+})();
+
+var addMines = (function (){
+    return function () {
+      var random = Math.floor(Math.random() * (81 - 1 + 1)) + 1;
+      $('*[data="' + random  + '"]').append("X")
     };
 })();
