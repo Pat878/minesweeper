@@ -15,6 +15,9 @@
 	display: table-cell;
 	padding: 20px 20px;
   vertical-align: top;
+  box-shadow: 1px 1px 1px;
+  background-color: grey;
+  border-radius: 5px;
 }
 
 
