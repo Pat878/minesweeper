@@ -1,3 +1,5 @@
+var shuffle = require('shuffle-array');
+
 $(document).ready(function(){
 makeGrid();
 //addMines();
