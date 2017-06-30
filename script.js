@@ -1,7 +1,6 @@
 $(document).ready(function(){
-makeGrid()
-for (var i=0;i<10;i++){
-addMines();}
+makeGrid();
+//addMines();
 })
 
 var makeGrid  = (function () {
@@ -17,9 +16,37 @@ var makeGrid  = (function () {
     };
 })();
 
-var addMines = (function (){
-    return function () {
-      var random = Math.floor(Math.random() * (81 - 1 + 1)) + 1;
-      $('*[data="' + random  + '"]').append("X")
+var addMines = (function () {
+var mineArray = Array.apply(null, Array(81)).map(function (_, i) {return i;});
+
+    return {
+      shuffle: function (array) {
+
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (0 !== currentIndex) {
+
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  },
+
+  get: function (){
+  addMines.shuffle(mineArray);
+  var index = mineArray.indexOf(0);
+  if (index > -1) {
+  mineArray.splice(index, 1); }
+  var jawn = mineArray.splice(1,10)
+    return jawn
+  }
+
     };
 })();
+
+console.log(addMines.get())
