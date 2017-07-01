@@ -4,8 +4,6 @@ makeGrid();
 
 })
 
-//var shuffle = require('shuffle-array');
-
 var makeGrid  = (function () {
     return function () {
       var row = 9;
