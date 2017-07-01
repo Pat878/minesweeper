@@ -1,9 +1,10 @@
-var shuffle = require('shuffle-array');
-
 $(document).ready(function(){
 makeGrid();
 //addMines();
+
 })
+
+//var shuffle = require('shuffle-array');
 
 var makeGrid  = (function () {
     return function () {
@@ -19,7 +20,11 @@ var makeGrid  = (function () {
 })();
 
 var addMines = (function () {
-var mineArray = Array.apply(null, Array(81)).map(function (_, i) {return i;});
+
+var mineArray = [];
+for (var i = 1; i < 82;i++) {
+mineArray.push(i)
+}
 
     return {
       shuffle: function (array) {
@@ -41,11 +46,8 @@ var mineArray = Array.apply(null, Array(81)).map(function (_, i) {return i;});
 
   get: function (){
   addMines.shuffle(mineArray);
-  var index = mineArray.indexOf(0);
-  if (index > -1) {
-  mineArray.splice(index, 1); }
-  var jawn = mineArray.splice(1,10)
-    return jawn
+  mineArray = mineArray.splice(1,10)
+    return mineArray
   }
 
     };
