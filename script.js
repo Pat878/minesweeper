@@ -1,7 +1,7 @@
 $(document).ready(function(){
 makeGrid();
 //addMines();
-
+detectBombs();
 })
 
 var makeGrid  = (function () {
@@ -51,4 +51,18 @@ mineArray.push(i)
     };
 })();
 
-console.log(addMines.get())
+var detectBombs  = (function () {
+    return function () {
+      var mineArray = addMines.get()
+      console.log(mineArray)
+
+      $(".divTableCell").on("click", function(){
+        console.log($(this).attr("data"))
+        for (var i=0;i<mineArray.length;i++) {
+          if ( $(this).attr("data") == mineArray[i] ) {
+            alert("BOMB!")
+          }
+         }
+      })
+    };
+})();
