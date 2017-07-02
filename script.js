@@ -62,11 +62,7 @@ var detectBombs  = (function () {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<81;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-              .css("background-color", "white" )
-}
-
-
-
+              .css("background-color", "white" ) }
           }
          }
       })
