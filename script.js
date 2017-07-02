@@ -60,9 +60,11 @@ var detectBombs  = (function () {
         console.log($(this).attr("data"))
         for (var i=0;i<mineArray.length;i++) {
           if ( $(this).attr("data") == mineArray[i] ) {
-            for (var j = 0;j<81;j++) {
+            for (var j = 0;j<82;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-              .css("background-color", "white" ) }
+              .css("background-color", "white" )
+              $('*[data="' + j + '"]').css("background-color", "white" )
+             }
           }
          }
       })
