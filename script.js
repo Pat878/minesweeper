@@ -2,6 +2,7 @@ $(document).ready(function(){
 makeGrid();
 //addMines();
 detectBombs();
+detectEmptySpaces();
 })
 
 var makeGrid  = (function () {
@@ -69,4 +70,12 @@ var detectBombs  = (function () {
          }
       })
     };
+})();
+
+var detectEmptySpaces = (function () {
+  return function () {
+  $(".divTableCell").on("click", function() {
+    $(this).css("background-color", "white");
+  });
+};
 })();
