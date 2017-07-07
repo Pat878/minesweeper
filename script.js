@@ -52,9 +52,11 @@ mineArray.push(i)
     };
 })();
 
+var mineArray = addMines.get()
+
 var detectBombs  = (function () {
     return function () {
-      var mineArray = addMines.get()
+    //  var mineArray = addMines.get()
       console.log(mineArray)
 
       $(".divTableCell").on("click", function(){
@@ -75,7 +77,17 @@ var detectBombs  = (function () {
 var detectEmptySpaces = (function () {
   return function () {
   $(".divTableCell").on("click", function() {
-    $(this).css("background-color", "white");
+      for (var i=0;i<mineArray.length;i++) {
+        for (var j = 0;j<82;j++) {
+          if ( $(this).attr("data") !== mineArray[i]) {
+            $('*[data="' + mineArray[i] + '"]').css("background-color", "blue" );
+          }
+              if (mineArray.includes(j) == false) {
+                $('*[data="' + j + '"]').css("background-color", "white" );
+        }
+      }
+    }
+
   });
 };
 })();
