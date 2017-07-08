@@ -60,7 +60,7 @@ var detectBombs  = (function () {
       console.log(mineArray)
 
       $(".divTableCell").on("click", function(){
-        console.log($(this).attr("data"))
+        //console.log($(this).attr("data"))
         for (var i=0;i<mineArray.length;i++) {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<82;j++) {
@@ -75,19 +75,20 @@ var detectBombs  = (function () {
 })();
 
 var detectEmptySpaces = (function () {
+
   return function () {
   $(".divTableCell").on("click", function() {
-      for (var i=0;i<mineArray.length;i++) {
-        for (var j = 0;j<82;j++) {
-          if ( $(this).attr("data") !== mineArray[i]) {
-            $('*[data="' + mineArray[i] + '"]').css("background-color", "blue" );
-          }
-              if (mineArray.includes(j) == false) {
-                $('*[data="' + j + '"]').css("background-color", "white" );
-        }
-      }
-    }
+    var thisCell = parseInt($(this).attr("data"));
 
+    $(this).css("background-color", "white" );
+    var timer = setInterval(function(){
+      thisCell = (thisCell + 1)
+    if ( mineArray.includes(thisCell) == false && thisCell % 9 !== 1  ) {
+      $('*[data="' + thisCell + '"]').css("background-color", "white" );}
+      if ( mineArray.includes(thisCell) == true || thisCell % 9 == 1 ) {
+        clearInterval(timer);
+      }
+     }, 1000);
   });
 };
 })();
