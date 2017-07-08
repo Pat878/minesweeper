@@ -79,16 +79,18 @@ var detectEmptySpaces = (function () {
   return function () {
   $(".divTableCell").on("click", function() {
     var thisCell = parseInt($(this).attr("data"));
-
+    var up, right, down, left, diagonalRightUp, diagonalRightDown, diagonalLeftUp, diagonalLeftDown;
     $(this).css("background-color", "white" );
     var timer = setInterval(function(){
-      thisCell = (thisCell + 1)
+      thisCell = (thisCell + 1);
+
     if ( mineArray.includes(thisCell) == false && thisCell % 9 !== 1  ) {
-      $('*[data="' + thisCell + '"]').css("background-color", "white" );}
+      $('*[data="' + thisCell + '"]').css("background-color", "white" );
+        }
       if ( mineArray.includes(thisCell) == true || thisCell % 9 == 1 ) {
         clearInterval(timer);
       }
-     }, 1000);
+    }, 1000);
   });
 };
 })();
