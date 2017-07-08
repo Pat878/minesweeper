@@ -78,9 +78,19 @@ var detectEmptySpaces = (function () {
 
   return function () {
   $(".divTableCell").on("click", function() {
+
     var thisCell = parseInt($(this).attr("data"));
-    var up, right, down, left, diagonalRightUp, diagonalRightDown, diagonalLeftUp, diagonalLeftDown;
+    var up = (thisCell - 9);
+    var right = (thisCell + 1);
+    var down = (thisCell + 9);
+    var left = (thisCell - 1);
+    var diagonalRightUp = (thisCell - 8);
+    var diagonalRightDown = (thisCell + 10);
+    var diagonalLeftUp = (thisCell - 8);
+    var diagonalLeftDown = (thisCell + 8);
+
     $(this).css("background-color", "white" );
+
     var timer = setInterval(function(){
       thisCell = (thisCell + 1);
 
