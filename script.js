@@ -13,7 +13,8 @@ var makeGrid  = (function () {
       for (i=0;i<row;i++){
         $(".divTableRow").append("<div class='divTableCell'></div>") }
         $(".divTableCell").each( function(i) {
-              $(this).attr('data', (i+1));
+              $(this).attr('data', (i+1))
+              $(this).append(i+1)
             });
     };
 })();
@@ -57,7 +58,7 @@ var mineArray = addMines.get()
 var detectBombs  = (function () {
     return function () {
     //  var mineArray = addMines.get()
-      console.log(mineArray)
+      console.log(mineArray.sort())
 
       $(".divTableCell").on("click", function(){
         //console.log($(this).attr("data"))
@@ -86,21 +87,30 @@ var detectEmptySpaces = (function () {
     var left = (thisCell - 1);
     var diagonalRightUp = (thisCell - 8);
     var diagonalRightDown = (thisCell + 10);
-    var diagonalLeftUp = (thisCell - 8);
+    var diagonalLeftUp = (thisCell - 10);
     var diagonalLeftDown = (thisCell + 8);
+    var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
 
-    $(this).css("background-color", "white" );
+      for (var i = 0;i<direction.length;i++) {
+        console.log(direction[i])
 
-    var timer = setInterval(function(){
-      thisCell = (thisCell + 1);
-
-    if ( mineArray.includes(thisCell) == false && thisCell % 9 !== 1  ) {
-      $('*[data="' + thisCell + '"]').css("background-color", "white" );
+      if (mineArray.includes(direction[i]) == true ) {
+          $('*[data="' + thisCell + '"]').css("background-color", "grey" );
         }
-      if ( mineArray.includes(thisCell) == true || thisCell % 9 == 1 ) {
-        clearInterval(timer);
+      if (mineArray.includes(direction[i]) == false && mineArray.includes(thisCell) == false) {
+          $('*[data="' + direction[i] + '"]').css("background-color", "white" );
+          $(this).css("background-color", "white" );
       }
-    }, 1000);
+
+      if (thisCell % 9 == 1 && direction[i] % 9 == 0) {
+
+          $('*[data="' + direction[i] + '"]').css("background-color", "grey" );
+          $(this).css("background-color", "white" );
+        }
+
+
+    }
+
   });
 };
 })();
