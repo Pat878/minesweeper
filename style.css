@@ -24,3 +24,7 @@
 .divTableBody {
 	display: table-row-group;
 }
+
+.open {
+	background-color: white;
+}
