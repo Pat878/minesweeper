@@ -3,6 +3,7 @@ makeGrid();
 //addMines();
 detectBombs();
 detectEmptySpaces();
+distanceToMine();
 })
 
 var makeGrid  = (function () {
@@ -14,7 +15,7 @@ var makeGrid  = (function () {
         $(".divTableRow").append("<div class='divTableCell'></div>") }
         $(".divTableCell").each( function(i) {
               $(this).attr('data', (i+1))
-              $(this).append(i+1)
+            //  $(this).append(i+1)
             });
     };
 })();
@@ -77,7 +78,8 @@ var detectBombs  = (function () {
 
 var detectEmptySpaces = (function () {
 
-  return function () {
+  return function() {
+
   $(".divTableCell").on("click", function() {
 
     var thisCell = parseInt($(this).attr("data"));
@@ -91,26 +93,57 @@ var detectEmptySpaces = (function () {
     var diagonalLeftDown = (thisCell + 8);
     var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
 
-      for (var i = 0;i<direction.length;i++) {
-        console.log(direction[i])
-
-      if (mineArray.includes(direction[i]) == true ) {
-          $('*[data="' + thisCell + '"]').css("background-color", "grey" );
-        }
-      if (mineArray.includes(direction[i]) == false && mineArray.includes(thisCell) == false) {
-          $('*[data="' + direction[i] + '"]').css("background-color", "white" );
-          $(this).css("background-color", "white" );
-      }
-
-      if (thisCell % 9 == 1 && direction[i] % 9 == 0) {
-
-          $('*[data="' + direction[i] + '"]').css("background-color", "grey" );
-          $(this).css("background-color", "white" );
-        }
-
-
-    }
 
   });
 };
+})();
+
+
+var distanceToMine  = (function () {
+    return function () {
+
+
+//The following code to find mathcing array values was taken from this answer:
+//https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
+
+      Array.prototype.diff = function(arr2) {
+          var ret = [];
+          this.sort();
+          arr2.sort();
+          for(var i = 0; i < this.length; i += 1) {
+              if(arr2.indexOf( this[i] ) > -1){
+                  ret.push( this[i] );
+              }
+          }
+          return ret;
+      };
+
+      $(".divTableCell").each( function(i) {
+
+        var thisCell =  parseInt($(this).attr("data"));
+        var up = (thisCell - 9);
+        var right = (thisCell + 1);
+        var down = (thisCell + 9);
+        var left = (thisCell - 1);
+        var diagonalRightUp = (thisCell - 8);
+        var diagonalRightDown = (thisCell + 10);
+        var diagonalLeftUp = (thisCell - 10);
+        var diagonalLeftDown = (thisCell + 8);
+        var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
+
+
+        var adjacentNumbers = direction.filter(function(num){
+            return num > 0 && num <= 81
+        })
+           var mineDistances = mineArray.diff(adjacentNumbers)
+          console.log( mineDistances.length );
+
+            if (mineDistances.length > 0) {
+            $(this).append(mineDistances.length) }
+
+
+          });
+
+
+      };
 })();
