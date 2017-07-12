@@ -118,6 +118,8 @@ var distanceToMine  = (function () {
           return ret;
       };
 
+      var arr = [];
+
       $(".divTableCell").each( function(i) {
 
         var thisCell =  parseInt($(this).attr("data"));
@@ -136,13 +138,19 @@ var distanceToMine  = (function () {
             return num > 0 && num <= 81
         })
            var mineDistances = mineArray.diff(adjacentNumbers)
-          console.log( mineDistances.length );
 
-            if (mineDistances.length > 0) {
-            $(this).append(mineDistances.length) }
-
+          arr.push(mineDistances.length)
 
           });
+          //https://stackoverflow.com/questions/4215737/convert-array-to-object
+
+          var obj = arr.reduce(function(acc, cur, i) {
+            acc[i] = cur;
+            return acc;
+          }, {});
+
+          console.log(obj)
+//console.log(obj[0])
 
 
       };
