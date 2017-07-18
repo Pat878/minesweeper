@@ -99,7 +99,7 @@ var detectEmptySpaces = (function () {
 })();
 
 
-var distanceToMine  = (function () {
+var distanceToMine = (function () {
 
   //The following code to find mathcing array values was taken from this answer:
   //https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
