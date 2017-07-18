@@ -3,7 +3,7 @@ makeGrid();
 //addMines();
 detectBombs();
 detectEmptySpaces();
-distanceToMine();
+//distanceToMine();
 })
 
 var makeGrid  = (function () {
@@ -100,58 +100,62 @@ var detectEmptySpaces = (function () {
 
 
 var distanceToMine  = (function () {
-    return function () {
 
+  //The following code to find mathcing array values was taken from this answer:
+  //https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
 
-//The following code to find mathcing array values was taken from this answer:
-//https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
+        Array.prototype.diff = function(arr2) {
+            var ret = [];
+            this.sort();
+            arr2.sort();
+            for(var i = 0; i < this.length; i += 1) {
+                if(arr2.indexOf( this[i] ) > -1){
+                    ret.push( this[i] );
+                }
+            }
+            return ret;
+        };
 
-      Array.prototype.diff = function(arr2) {
-          var ret = [];
-          this.sort();
-          arr2.sort();
-          for(var i = 0; i < this.length; i += 1) {
-              if(arr2.indexOf( this[i] ) > -1){
-                  ret.push( this[i] );
-              }
-          }
-          return ret;
-      };
+        var arr = [];
 
-      var arr = [];
+        for (var i=0;i<81;i++) {
 
-      $(".divTableCell").each( function(i) {
+          var thisCell =  i;
+          var up = (thisCell - 9);
+          var right = (thisCell + 1);
+          var down = (thisCell + 9);
+          var left = (thisCell - 1);
+          var diagonalRightUp = (thisCell - 8);
+          var diagonalRightDown = (thisCell + 10);
+          var diagonalLeftUp = (thisCell - 10);
+          var diagonalLeftDown = (thisCell + 8);
+          var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
 
-        var thisCell =  parseInt($(this).attr("data"));
-        var up = (thisCell - 9);
-        var right = (thisCell + 1);
-        var down = (thisCell + 9);
-        var left = (thisCell - 1);
-        var diagonalRightUp = (thisCell - 8);
-        var diagonalRightDown = (thisCell + 10);
-        var diagonalLeftUp = (thisCell - 10);
-        var diagonalLeftDown = (thisCell + 8);
-        var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
-
-
-        var adjacentNumbers = direction.filter(function(num){
-            return num > 0 && num <= 81
-        })
-           var mineDistances = mineArray.diff(adjacentNumbers)
+          var adjacentNumbers = direction.filter(function(num){
+              return num > 0 && num <= 81
+          })
+          var mineDistances = mineArray.diff(adjacentNumbers)
 
           arr.push(mineDistances.length)
 
-          });
-          //https://stackoverflow.com/questions/4215737/convert-array-to-object
+            }
 
-          var obj = arr.reduce(function(acc, cur, i) {
-            acc[i] = cur;
-            return acc;
-          }, {});
+            //I used the following linke to convert an array
+            //to an object: https://stackoverflow.com/questions/4215737/convert-array-to-object
 
-          console.log(obj)
-//console.log(obj[0])
+            var obj = arr.reduce(function(acc, cur, i) {
+              acc[i] = cur;
+              return acc;
+            }, {});
+
+      return {
+
+      distance: function (){
+        return obj;
+      }
 
 
       };
 })();
+
+console.log(distanceToMine.distance())
