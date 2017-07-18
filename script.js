@@ -2,7 +2,7 @@ $(document).ready(function(){
 makeGrid();
 //addMines();
 detectBombs();
-detectEmptySpaces();
+//revealCells();
 //distanceToMine();
 })
 
@@ -76,29 +76,6 @@ var detectBombs  = (function () {
     };
 })();
 
-var detectEmptySpaces = (function () {
-
-  return function() {
-
-  $(".divTableCell").on("click", function() {
-
-    var thisCell = parseInt($(this).attr("data"));
-    var up = (thisCell - 9);
-    var right = (thisCell + 1);
-    var down = (thisCell + 9);
-    var left = (thisCell - 1);
-    var diagonalRightUp = (thisCell - 8);
-    var diagonalRightDown = (thisCell + 10);
-    var diagonalLeftUp = (thisCell - 10);
-    var diagonalLeftDown = (thisCell + 8);
-    var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
-
-
-  });
-};
-})();
-
-
 var distanceToMine = (function () {
 
   //The following code to find mathcing array values was taken from this answer:
@@ -159,3 +136,10 @@ var distanceToMine = (function () {
 })();
 
 console.log(distanceToMine.distance())
+
+var revealCells = (function () {
+
+  return function() {
+
+};
+})();
