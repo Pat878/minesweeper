@@ -2,7 +2,7 @@ $(document).ready(function(){
 makeGrid();
 //addMines();
 detectBombs();
-//revealCells();
+revealCells();
 //distanceToMine();
 })
 
@@ -14,7 +14,7 @@ var makeGrid  = (function () {
       for (i=0;i<row;i++){
         $(".divTableRow").append("<div class='divTableCell'></div>") }
         $(".divTableCell").each( function(i) {
-              $(this).attr('data', (i+1))
+              $(this).attr('data', (i))
             //  $(this).append(i+1)
             });
     };
@@ -23,7 +23,7 @@ var makeGrid  = (function () {
 var addMines = (function () {
 
 var mineArray = [];
-for (var i = 1; i < 82;i++) {
+for (var i = 0; i < 81;i++) {
 mineArray.push(i)
 }
 
@@ -59,13 +59,13 @@ var mineArray = addMines.get()
 var detectBombs  = (function () {
     return function () {
     //  var mineArray = addMines.get()
-      console.log(mineArray.sort())
+      //console.log(mineArray.sort())
 
       $(".divTableCell").on("click", function(){
         //console.log($(this).attr("data"))
         for (var i=0;i<mineArray.length;i++) {
           if ( $(this).attr("data") == mineArray[i] ) {
-            for (var j = 0;j<82;j++) {
+            for (var j = 0;j<81;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
               .css("background-color", "white" )
               $('*[data="' + j + '"]').css("background-color", "white" )
@@ -112,34 +112,38 @@ var distanceToMine = (function () {
               return num > 0 && num <= 81
           })
           var mineDistances = mineArray.diff(adjacentNumbers)
-
+//console.log(adjacentNumbers)
           arr.push(mineDistances.length)
 
             }
 
-            //I used the following linke to convert an array
-            //to an object: https://stackoverflow.com/questions/4215737/convert-array-to-object
-
-            var obj = arr.reduce(function(acc, cur, i) {
-              acc[i] = cur;
-              return acc;
-            }, {});
-
       return {
 
       distance: function (){
-        return obj;
+        return arr;
       }
 
 
       };
 })();
 
-console.log(distanceToMine.distance())
+var distanceToMineArray = distanceToMine.distance();
+console.log(distanceToMineArray)
 
 var revealCells = (function () {
 
   return function() {
 
+      $(".divTableCell").on("click", function(){
+        if ( distanceToMineArray[$(this).attr("data")] > 0 ) {
+        //  console.log(distanceToMineArray[$(this).attr("data") - 1])
+          $(this).addClass("open").append(distanceToMineArray[$(this).attr("data")])
+          //console.log($(this).attr("data"))
+        }
+
+      });
+
 };
 })();
+
+console.log(mineArray)
