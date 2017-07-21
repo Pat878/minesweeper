@@ -106,6 +106,24 @@ var distanceToMine = (function () {
           var diagonalRightDown = (thisCell + 10);
           var diagonalLeftUp = (thisCell - 10);
           var diagonalLeftDown = (thisCell + 8);
+
+          var leftBorder = [0,9,18,27,36,45,54,63,72]
+          var rightBorder = [8,17,26,35,44,53,62,71,80]
+
+          for (var j=0;j<leftBorder.length;j++) {
+              if (i == leftBorder[j]){
+              left = (-100)
+              diagonalLeftUp = (-100)
+              diagonalLeftDown = (-100)
+          } }
+
+          for (var k=0;k<rightBorder.length;k++) {
+              if (i == rightBorder[k]){
+              right = (-100)
+              diagonalRightUp = (-100)
+              diagonalRightDown = (-100)
+          } }
+
           var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
 
           var adjacentNumbers = direction.filter(function(num){
@@ -135,15 +153,53 @@ var revealCells = (function () {
   return function() {
 
       $(".divTableCell").on("click", function(){
-        if ( distanceToMineArray[$(this).attr("data")] > 0 ) {
-        //  console.log(distanceToMineArray[$(this).attr("data") - 1])
+          if ( distanceToMineArray[$(this).attr("data")] > 0) {
           $(this).addClass("open").append(distanceToMineArray[$(this).attr("data")])
-          //console.log($(this).attr("data"))
-        }
+          }
 
       });
 
 };
 })();
 
-console.log(mineArray)
+
+
+for (var i=0;i<81;i++) {
+
+  var thisCell =  i;
+  var up = (thisCell - 9);
+  var right = (thisCell + 1);
+  var down = (thisCell + 9);
+  var left = (thisCell - 1);
+  var diagonalRightUp = (thisCell - 8);
+  var diagonalRightDown = (thisCell + 10);
+  var diagonalLeftUp = (thisCell - 10);
+  var diagonalLeftDown = (thisCell + 8);
+
+  var leftBorder = [0,9,18,27,36,45,54,63,72]
+  var rightBorder = [8,17,26,35,44,53,62,71,80]
+
+  for (var j=0;j<leftBorder.length;j++) {
+      if (i == leftBorder[j]){
+      left = (-100)
+      diagonalLeftUp = (-100)
+      diagonalLeftDown = (-100)
+  } }
+
+  for (var k=0;k<rightBorder.length;k++) {
+      if (i == rightBorder[k]){
+      right = (-100)
+      diagonalRightUp = (-100)
+      diagonalRightDown = (-100)
+  } }
+
+  var direction = [up,right,down,left,diagonalRightUp,diagonalRightDown,diagonalLeftUp,diagonalLeftDown];
+console.log(direction)
+  //var adjacentNumbers = direction.filter(function(num){
+    //  return num > 0 && num <= 81
+//  })
+  //var mineDistances = mineArray.diff(adjacentNumbers)
+//console.log(adjacentNumbers)
+  //arr.push(mineDistances.length)
+
+    }
