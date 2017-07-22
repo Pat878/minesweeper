@@ -130,7 +130,7 @@ var distanceToMine = (function () {
               return num > 0 && num <= 81
           })
           var mineDistances = mineArray.diff(adjacentNumbers)
-//console.log(adjacentNumbers)
+          //console.log(adjacentNumbers)
           arr.push(mineDistances.length)
 
             }
