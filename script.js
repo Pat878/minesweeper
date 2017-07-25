@@ -172,14 +172,15 @@ var revealCells = (function () {
                 if (thisCell == leftBorder[j]){
                   numbers[6] = 0;
                   numbers[3] = 0;
-                  numbers[5] = 0;
                   numbers[7] = 0;
                   console.log(numbers[6])
                 }
               }
               for (var k=0;k<rightBorder.length;k++) {
                 if (thisCell == rightBorder[k]){
-                  thisCell = thisCell;
+                  numbers[1] = 0;
+                  numbers[4] = 0;
+                  numbers[5] = 0;
                 }
               }
 
