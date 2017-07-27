@@ -1,9 +1,7 @@
 $(document).ready(function(){
 makeGrid();
-//addMines();
 detectBombs();
 revealCells();
-//distanceToMine();
 })
 
 var makeGrid  = (function () {
@@ -58,8 +56,6 @@ var mineArray = addMines.get()
 
 var detectBombs  = (function () {
     return function () {
-    //  var mineArray = addMines.get()
-      //console.log(mineArray.sort())
 
       $(".divTableCell").on("click", function(){
         //console.log($(this).attr("data"))
@@ -156,26 +152,18 @@ var revealCells = (function () {
       var numbers = [-9,1,9,-1,-8,10,8,-10]
       var leftBorder = [0,9,18,27,36,45,54,63,72]
       var rightBorder = [8,17,26,35,44,53,62,71,80]
+      var openCells = [];
 
           if ( distanceToMineArray[$(this).attr("data")] > 0) {
-            $(this).addClass("open").append(distanceToMineArray[$(this).attr("data")])
-              }
+            $(this).addClass("open").append(distanceToMineArray[$(this).attr("data")]) }
 
           if ( distanceToMineArray[$(this).attr("data")] == 0){
             $(this).addClass("open");
             var thisCell = parseInt($(this).attr("data"));
 
-            for (var i=0;i<numbers.length;i++) {
+      var reveal = function() {  for (var i=0;i<numbers.length;i++) {
               var thisNum = thisCell + numbers[i]
 
-              for (var j=0;j<leftBorder.length;j++) {
-                if (thisCell == leftBorder[j]){
-                  numbers[6] = 0;
-                  numbers[3] = 0;
-                  numbers[7] = 0;
-                  console.log(numbers[6])
-                }
-              }
               for (var k=0;k<rightBorder.length;k++) {
                 if (thisCell == rightBorder[k]){
                   numbers[1] = 0;
@@ -184,11 +172,25 @@ var revealCells = (function () {
                 }
               }
 
+              for (var j=0;j<leftBorder.length;j++) {
+                if (thisCell == leftBorder[j]){
+                  numbers[3] = 0;
+                  numbers[6] = 0;
+                  numbers[7] = 0;
+
+                }
+              }
+
+
               $('*[data="' + thisNum + '"]').addClass("open")
-            }
+              openCells.push(thisNum)
 
-            }
-
+            } }
+              reveal();
+              //thisCell = (thisCell - 1)
+              //reveal()
+              }
+console.log(openCells)
       });
 
 };
