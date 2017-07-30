@@ -63,8 +63,8 @@ var detectBombs  = (function () {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<81;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-              .css("background-color", "white" )
-              $('*[data="' + j + '"]').css("background-color", "white" )
+              .addClass('open mine')
+              $('*[data="' + j + '"]').addClass('open')
              }
           }
          }
@@ -154,8 +154,9 @@ var revealCells = (function () {
       var rightBorder = [8,17,26,35,44,53,62,71,80]
       var openCells = [];
 
-          if ( distanceToMineArray[$(this).attr("data")] > 0) {
-            $(this).addClass("open").append(distanceToMineArray[$(this).attr("data")]) }
+          if ( distanceToMineArray[$(this).attr("data")] > 0 && $(this).hasClass('number') !== true
+          && $(this).hasClass('mine') !== true) {
+            $(this).addClass("open number").append(distanceToMineArray[$(this).attr("data")]) }
 
           if ( distanceToMineArray[$(this).attr("data")] == 0){
             $(this).addClass("open");
@@ -204,8 +205,10 @@ var revealCells = (function () {
 
               $('.open').each(function(i, obj) {
                   var num = parseInt($(this).attr("data"))
-                  if (distanceToMineArray[num] > 0){
-                    $(this).append(distanceToMineArray[$(this).attr("data")])
+                  console.log($(this).hasClass('number'))
+                  if (distanceToMineArray[num] > 0 && $(this).hasClass('number') !== true
+                  && $(this).hasClass('mine') !== true){
+                    $(this).append(distanceToMineArray[$(this).attr("data")]).addClass('number')
                   }
               });
             });
