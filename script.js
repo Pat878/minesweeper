@@ -187,11 +187,28 @@ var revealCells = (function () {
 
             } }
               reveal();
-              //thisCell = (thisCell - 1)
-              //reveal()
+                $(openCells).each(function(index,value){
+                //console.log(numbers)
+                //console.log(distanceToMineArray[this])
+                if (distanceToMineArray[value] == 0) {
+                thisCell = value;
+              reveal();
+                  }
+                   //if (distanceToMineArray[value] > 0) {
+                     //console.log(distanceToMineArray[value])
+                    //$('*[data="' + value + '"]').addClass("open").append(distanceToMineArray[value]) }
+
+                })
+
               }
-console.log(openCells)
-      });
+
+              $('.open').each(function(i, obj) {
+                  var num = parseInt($(this).attr("data"))
+                  if (distanceToMineArray[num] > 0){
+                    $(this).append(distanceToMineArray[$(this).attr("data")])
+                  }
+              });
+            });
 
 };
 })();
