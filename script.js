@@ -6,13 +6,15 @@ revealCells();
 
 var makeGrid  = (function () {
     return function () {
+
       var row = 9;
       for (var i=0;i<row;i++){
         $(".divTableBody").append("<div class='divTableRow'></div>") }
       for (i=0;i<row;i++){
         $(".divTableRow").append("<div class='divTableCell'></div>") }
         $(".divTableCell").each( function(i) {
-              $(this).attr('data', (i))
+              $(this).attr('data', (i)).addClass("closed")
+
             //  $(this).append(i+1)
             });
     };
@@ -63,8 +65,8 @@ var detectBombs  = (function () {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<81;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-              .addClass('open mine')
-              $('*[data="' + j + '"]').addClass('open')
+              .addClass('open mine').removeClass("closed")
+              $('*[data="' + j + '"]').addClass('open').removeClass("closed")
              }
           }
          }
@@ -141,6 +143,10 @@ var distanceToMine = (function () {
       };
 })();
 
+var click = 0;
+var id;
+var openCells = [];
+
 var distanceToMineArray = distanceToMine.distance();
 console.log(distanceToMineArray)
 
@@ -149,20 +155,28 @@ var revealCells = (function () {
   return function() {
 
       $(".divTableCell").on("click", function(){
+
+      var theNumber = $(this).attr("data")
+      var selectedNumbers = [];
       var numbers = [-9,1,9,-1,-8,10,8,-10]
       var leftBorder = [0,9,18,27,36,45,54,63,72]
       var rightBorder = [8,17,26,35,44,53,62,71,80]
-      var openCells = [];
 
-          if ( distanceToMineArray[$(this).attr("data")] > 0 && $(this).hasClass('number') !== true
+
+          if ( distanceToMineArray[theNumber] > 0 && $(this).hasClass('number') !== true
           && $(this).hasClass('mine') !== true) {
-            $(this).addClass("open number").append(distanceToMineArray[$(this).attr("data")]) }
+            $(this).addClass("open number").append(distanceToMineArray[theNumber]).removeClass("closed") }
 
-          if ( distanceToMineArray[$(this).attr("data")] == 0){
-            $(this).addClass("open");
+          if ( distanceToMineArray[theNumber] == 0 && $(this).hasClass("click") == false){
+
+            $(this).addClass("open click").removeClass("closed");
             var thisCell = parseInt($(this).attr("data"));
+            if (thisCell > 0 && thisCell < 81 && openCells.includes(thisCell) == false) {
+            openCells.push(thisCell) }
 
-      var reveal = function() {  for (var i=0;i<numbers.length;i++) {
+
+            function reveal() {  for (var i=0;i<numbers.length;i++) {
+
               var thisNum = thisCell + numbers[i]
 
               for (var k=0;k<rightBorder.length;k++) {
@@ -182,35 +196,40 @@ var revealCells = (function () {
                 }
               }
 
-
-              $('*[data="' + thisNum + '"]').addClass("open")
-              openCells.push(thisNum)
+              $('*[data="' + thisNum + '"]').addClass("open ").removeClass("closed")
+              if ( thisNum > 0 && thisNum < 81 && openCells.includes(thisNum) == false ){
+              openCells.push(thisNum) }
+              console.log(openCells.sort())
+              showNumbers()
 
             } }
-              reveal();
-                $(openCells).each(function(index,value){
-                //console.log(numbers)
-                //console.log(distanceToMineArray[this])
-                if (distanceToMineArray[value] == 0) {
-                thisCell = value;
-              reveal();
-                  }
-                   //if (distanceToMineArray[value] > 0) {
-                     //console.log(distanceToMineArray[value])
-                    //$('*[data="' + value + '"]').addClass("open").append(distanceToMineArray[value]) }
 
-                })
+            reveal();
+            open()
 
-              }
+            function open () {
+            for (var o=0;o<openCells.length;o++){
+             var clickboy = $('*[data="' + openCells[o] + '"]')
+             while ( $(clickboy).hasClass("click") == false
+             && $(clickboy).hasClass("number") == false) {
+               $(clickboy).trigger("click")
+             }
 
-              $('.open').each(function(i, obj) {
+           } }
+
+        function showNumbers () {
+          $('.open').each(function(i, obj) {
                   var num = parseInt($(this).attr("data"))
-                  console.log($(this).hasClass('number'))
+                  //console.log($(this).hasClass('number'))
                   if (distanceToMineArray[num] > 0 && $(this).hasClass('number') !== true
                   && $(this).hasClass('mine') !== true){
-                    $(this).append(distanceToMineArray[$(this).attr("data")]).addClass('number')
+                    $(this).append(distanceToMineArray[$(this).attr("data")]).addClass('number').removeClass("closed")
                   }
               });
+             }
+
+
+}
             });
 
 };
