@@ -60,7 +60,6 @@ var detectBombs  = (function () {
     return function () {
 
       $(".divTableCell").on("click", function(){
-        //console.log($(this).attr("data"))
         for (var i=0;i<mineArray.length;i++) {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<81;j++) {
@@ -128,7 +127,6 @@ var distanceToMine = (function () {
               return num > 0 && num <= 81
           })
           var mineDistances = mineArray.diff(adjacentNumbers)
-          //console.log(adjacentNumbers)
           arr.push(mineDistances.length)
 
             }
@@ -170,7 +168,7 @@ var revealCells = (function () {
           if ( distanceToMineArray[theNumber] == 0 && $(this).hasClass("click") == false){
 
             $(this).addClass("open click").removeClass("closed");
-            var thisCell = parseInt($(this).attr("data"));
+            var thisCell = parseInt(theNumber);
             if (thisCell > 0 && thisCell < 81 && openCells.includes(thisCell) == false) {
             openCells.push(thisCell) }
 
@@ -199,7 +197,6 @@ var revealCells = (function () {
               $('*[data="' + thisNum + '"]').addClass("open ").removeClass("closed")
               if ( thisNum > 0 && thisNum < 81 && openCells.includes(thisNum) == false ){
               openCells.push(thisNum) }
-              console.log(openCells.sort())
               showNumbers()
 
             } }
@@ -220,7 +217,6 @@ var revealCells = (function () {
         function showNumbers () {
           $('.open').each(function(i, obj) {
                   var num = parseInt($(this).attr("data"))
-                  //console.log($(this).hasClass('number'))
                   if (distanceToMineArray[num] > 0 && $(this).hasClass('number') !== true
                   && $(this).hasClass('mine') !== true){
                     $(this).append(distanceToMineArray[$(this).attr("data")]).addClass('number').removeClass("closed")
