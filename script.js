@@ -2,6 +2,7 @@ $(document).ready(function(){
 makeGrid();
 detectBombs();
 revealCells();
+addFlag();
 })
 
 var makeGrid  = (function () {
@@ -162,10 +163,11 @@ var revealCells = (function () {
 
 
           if ( distanceToMineArray[theNumber] > 0 && $(this).hasClass('number') !== true
-          && $(this).hasClass('mine') !== true) {
+          && $(this).hasClass('mine') !== true && $(this).hasClass("fa-flag") == false) {
             $(this).addClass("open number").append(distanceToMineArray[theNumber]).removeClass("closed") }
 
-          if ( distanceToMineArray[theNumber] == 0 && $(this).hasClass("click") == false){
+          if ( distanceToMineArray[theNumber] == 0 && $(this).hasClass("click") == false
+          && $(this).hasClass("fa-flag") == false){
 
             $(this).addClass("open click").removeClass("closed");
             var thisCell = parseInt(theNumber);
@@ -194,7 +196,8 @@ var revealCells = (function () {
                 }
               }
 
-              $('*[data="' + thisNum + '"]').addClass("open ").removeClass("closed")
+              if ( $('*[data="' + thisNum + '"]').hasClass("fa-flag") == false ) {
+              $('*[data="' + thisNum + '"]').addClass("open ").removeClass("closed") }
               if ( thisNum > 0 && thisNum < 81 && openCells.includes(thisNum) == false ){
               openCells.push(thisNum) }
               showNumbers()
@@ -208,7 +211,7 @@ var revealCells = (function () {
             for (var o=0;o<openCells.length;o++){
              var clickboy = $('*[data="' + openCells[o] + '"]')
              while ( $(clickboy).hasClass("click") == false
-             && $(clickboy).hasClass("number") == false) {
+             && $(clickboy).hasClass("number") == false && $(clickboy).hasClass("fa-flag") == false) {
                $(clickboy).trigger("click")
              }
 
@@ -229,4 +232,21 @@ var revealCells = (function () {
             });
 
 };
+})();
+
+
+var addFlag  = (function () {
+    return function () {
+
+      function flagger (){
+      $('.divTableCell').mousedown(function(event) {
+        console.log(event)
+          if (event.which == 3 && $(this).hasClass("number") == false) {
+            $(this).toggleClass("fa fa-flag")
+          }
+      });
+    }
+    flagger()
+  //  $(".divTableCell").toggle( flagger() )
+    };
 })();
