@@ -3,6 +3,7 @@ makeGrid();
 detectBombs();
 revealCells();
 addFlag();
+checkWin();
 })
 
 var makeGrid  = (function () {
@@ -65,7 +66,7 @@ var detectBombs  = (function () {
           if ( $(this).attr("data") == mineArray[i] ) {
             for (var j = 0;j<81;j++) {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-              .addClass('open mine').removeClass("closed")
+              .addClass('open mine').removeClass("closed fa-flag")
               $('*[data="' + j + '"]').addClass('open').removeClass("closed")
              }
           }
@@ -205,7 +206,7 @@ var revealCells = (function () {
             } }
 
             reveal();
-            open()
+            open();
 
             function open () {
             for (var o=0;o<openCells.length;o++){
@@ -239,14 +240,34 @@ var addFlag  = (function () {
     return function () {
 
       function flagger (){
+
       $('.divTableCell').mousedown(function(event) {
-        console.log(event)
           if (event.which == 3 && $(this).hasClass("number") == false) {
             $(this).toggleClass("fa fa-flag")
           }
       });
     }
     flagger()
-  //  $(".divTableCell").toggle( flagger() )
+
     };
 })();
+
+var checkWin  = (function () {
+    return function () {
+
+      $(".divTableCell").mousedown(function(){
+
+      function hasFlag(element, index, mineArray) {
+        return $('*[data="' + mineArray[index] + '"]').hasClass("fa-flag");
+      }
+
+      if ( (mineArray).every(hasFlag) == true) {
+        alert(true)
+        window.reload()
+      }
+})
+
+    };
+})();
+
+console.log(mineArray.sort())
