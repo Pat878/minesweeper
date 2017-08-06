@@ -237,16 +237,28 @@ var revealCells = (function () {
 
 
 var addFlag  = (function () {
+
+
     return function () {
 
       function flagger (){
 
       $('.divTableCell').mousedown(function(event) {
-          if (event.which == 3 && $(this).hasClass("number") == false) {
+        $("fa-flag").length
+          if (event.which == 3 && $(this).hasClass("number") == false && $(".fa-flag").length < 11) {
+            $(this).toggleClass("fa fa-flag")
+
+          }
+          console.log($(".fa-flag").length)
+          if ( $(".fa-flag").length == 11 ){
             $(this).toggleClass("fa fa-flag")
           }
+
       });
+
+
     }
+
     flagger()
 
     };
