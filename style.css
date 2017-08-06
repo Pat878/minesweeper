@@ -2,9 +2,11 @@
 	display: table;
 	width: 50%;
   padding: 50px;
+	background-color: #A9D2D5;
+	border-radius: 3px;
 }
 .divTableRow {
-	display: table-row;
+	display: flex;
 }
 .divTableHeading {
 	background-color: #EEE;
@@ -18,8 +20,8 @@
 	width: 50px;
   vertical-align: top;
   box-shadow: 1px 1px 1px;
-  background-color: grey;
-  border-radius: 5px;
+  background-color: #b8b894;
+  border-radius: 3px;
 }
 
 
@@ -28,5 +30,13 @@
 }
 
 .open {
-	background-color: white;
+	background-color: #fafafa;
+}
+
+.fa-flag {
+	color:  #EB4511;
+}
+
+.mine {
+	background-color: #BF211E;
 }
