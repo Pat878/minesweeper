@@ -249,7 +249,6 @@ var addFlag  = (function () {
             $(this).toggleClass("fa fa-flag")
 
           }
-          console.log($(".fa-flag").length)
           if ( $(".fa-flag").length == 11 ){
             $(this).toggleClass("fa fa-flag")
           }
@@ -274,8 +273,8 @@ var checkWin  = (function () {
       }
 
       if ( (mineArray).every(hasFlag) == true) {
-        alert(true)
-        window.reload()
+        alert("You win!")
+//        window.reload()
       }
 })
 
