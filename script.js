@@ -243,6 +243,8 @@ var addFlag  = (function () {
 
       function flagger (){
 
+      $('.divTableCell').on('contextmenu', function(e){ return false; });
+
       $('.divTableCell').mousedown(function(event) {
         $("fa-flag").length
           if (event.which == 3 && $(this).hasClass("number") == false && $(".fa-flag").length < 11) {
