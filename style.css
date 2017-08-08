@@ -1,21 +1,19 @@
 .divTable{
-	display: table;
+	display: block;
 	width: 50%;
   padding: 50px;
 	background-color: #A9D2D5;
 	border-radius: 3px;
+	margin: 10px auto;
 }
 .divTableRow {
 	display: flex;
 }
-.divTableHeading {
-	background-color: #EEE;
-	display: table-header-group;
-}
-.divTableCell, .divTableHead {
+
+.divTableCell {
 	border: 1px solid #999999;
-	display: table-cell;
-	/*padding: 20px 20px;*/
+	display: inline-block;
+	/*padding: 20px 20px; */
 	height: 50px;
 	width: 50px;
   vertical-align: top;
@@ -39,4 +37,20 @@
 
 .mine {
 	background-color: #BF211E;
+}
+
+.well {
+		background-color: #A9D2D5;
+}
+
+.flag-number {
+	border: 1px solid #999999;
+	display: inline-block;
+	padding: 20px 20px;
+	height: 50px;
+	width: 50px;
+	margin-left: 550px; ;
+  box-shadow: 1px 1px 1px;
+  background-color: #b8b894;
+  border-radius: 3px;
 }

@@ -17,7 +17,7 @@ var makeGrid  = (function () {
         $(".divTableCell").each( function(i) {
               $(this).attr('data', (i)).addClass("closed")
 
-            //  $(this).append(i+1)
+              //$(this).append(i+1)
             });
     };
 })();
@@ -246,7 +246,7 @@ var addFlag  = (function () {
       $('.divTableCell').on('contextmenu', function(e){ return false; });
 
       $('.divTableCell').mousedown(function(event) {
-        $("fa-flag").length
+        $(".fa-flag").length
           if (event.which == 3 && $(this).hasClass("number") == false && $(".fa-flag").length < 11) {
             $(this).toggleClass("fa fa-flag")
 
@@ -254,7 +254,7 @@ var addFlag  = (function () {
           if ( $(".fa-flag").length == 11 ){
             $(this).toggleClass("fa fa-flag")
           }
-
+$(".flag-number").html(10 - parseInt($(".fa-flag").length) )
       });
 
 
