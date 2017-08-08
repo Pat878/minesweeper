@@ -254,7 +254,7 @@ var addFlag  = (function () {
           if ( $(".fa-flag").length == 11 ){
             $(this).toggleClass("fa fa-flag")
           }
-$(".flag-number").html(10 - parseInt($(".fa-flag").length) )
+          $(".flag-number").html(10 - parseInt($(".fa-flag").length) )
       });
 
 
