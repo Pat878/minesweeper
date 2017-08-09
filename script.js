@@ -4,6 +4,7 @@ detectBombs();
 revealCells();
 addFlag();
 checkWin();
+newGame();
 })
 
 var makeGrid  = (function () {
@@ -284,3 +285,9 @@ var checkWin  = (function () {
 })();
 
 console.log(mineArray.sort())
+
+function newGame() {
+
+$(".new").on("click", function(){
+  location.reload()
+}) }
