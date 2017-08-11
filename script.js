@@ -149,7 +149,6 @@ var id;
 var openCells = [];
 
 var distanceToMineArray = distanceToMine.distance();
-console.log(distanceToMineArray)
 
 var revealCells = (function () {
 
@@ -283,8 +282,6 @@ var checkWin  = (function () {
 
     };
 })();
-
-console.log(mineArray.sort())
 
 function newGame() {
 
