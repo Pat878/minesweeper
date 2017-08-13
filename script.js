@@ -5,6 +5,7 @@ revealCells();
 addFlag();
 checkWin();
 newGame();
+screenWidth();
 })
 
 var makeGrid  = (function () {
@@ -288,3 +289,19 @@ function newGame() {
 $(".new").on("click", function(){
   location.reload()
 }) }
+
+//This function came from this answer:
+//https://stackoverflow.com/questions/7715124/do-something-if-screen-width-is-less-than-960-px
+
+function screenWidth(){
+  $(window).resize(function() {
+  if ($(window).width() < 960) {
+     $(".container").hide()
+     $("body").html("<p>Sorry! Your device's screen is too small to play this game! If you'd like to play, your screen must be larger than 960 pixels, and you'll need the ability to right-click.</p>")
+  }
+ else {
+   $(".container").show()
+   location.reload()
+ }
+});
+}
