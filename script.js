@@ -297,7 +297,7 @@ function screenWidth(){
   $(window).resize(function() {
   if ($(window).width() < 960) {
      $(".container").hide()
-     $("body").html("<p>Sorry! Your device's screen is too small to play this game! If you'd like to play, your screen must be larger than 960 pixels, and you'll need the ability to right-click.</p>")
+     $("body").html("<center><p class='bg-danger'>Sorry! Your device's screen is too small to play this game! If you'd like to play, your screen must be larger than 960 pixels, and you'll need the ability to right-click.</p></center>")
   }
  else {
    $(".container").show()
