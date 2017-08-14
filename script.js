@@ -6,7 +6,45 @@ addFlag();
 checkWin();
 newGame();
 screenWidth();
+startGame();
 })
+
+
+var gameOn = false;
+var timer;
+
+function startGame(){
+  if (gameOn == false){
+    $(".divTable").hide()
+    $(".new").hide()
+    $(".top").hide()
+  }
+  $(".start").on('click', function(){
+    $(".divTable").show()
+    $(".new").show()
+    $(".top").show()
+    $(".well").hide()
+    timer()
+  })
+}
+
+
+function timer(){
+  var i = 0
+  var j = 0
+  timer = setInterval(function(){
+  i++
+
+  $("#minutes").html("0"+j + ":" + "0" + i)
+  if (i >= 10) {
+  $("#minutes").html("0"+j + ":" + i) }
+  if (i > 59) {
+    i = 0;
+    j++
+ }
+  },1000)
+
+}
 
 var makeGrid  = (function () {
     return function () {
@@ -70,6 +108,7 @@ var detectBombs  = (function () {
               $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
               .addClass('open mine').removeClass("closed fa-flag")
               $('*[data="' + j + '"]').addClass('open').removeClass("closed")
+              clearInterval(timer)
              }
           }
          }
@@ -277,6 +316,7 @@ var checkWin  = (function () {
 
       if ( (mineArray).every(hasFlag) == true) {
         alert("You win!")
+        clearInterval(timer)
 //        window.reload()
       }
 })
