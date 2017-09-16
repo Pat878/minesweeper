@@ -1,17 +1,17 @@
 $(document).ready(function(){
   //makeGrid();
-  detectBombs();
-  revealCells();
-  addFlag();
-  checkWin();
-  newGame();
+  //  detectBombs();
+  //revealCells();
+  //addFlag();
+  //checkWin();
+  //  newGame();
   screenWidth();
   startGame();
 })
 
 
 var gameOn = false;
-var timer, level, row;
+var timer, level, row, mineArray;
 
 function startGame(){
   if (gameOn == false){
@@ -40,7 +40,6 @@ function startGame(){
   })
 }
 
-
 function timer(){
   var i = 0
   var j = 0
@@ -62,6 +61,7 @@ function timer(){
 
     if (level == "easy"){
       row = 9;
+
     }
     else if (level == "medium"){
       row = 12;
@@ -80,62 +80,59 @@ function timer(){
         });
       };
 
-
-      var addMines = (function () {
-
+      function addMines() {
         var mineArray = [];
         for (var i = 0; i < 81;i++) {
           mineArray.push(i)
         }
 
-        return {
-          shuffle: function (array) {
+        function shuffle (array) {
 
-            var currentIndex = array.length, temporaryValue, randomIndex;
+          var currentIndex = array.length, temporaryValue, randomIndex;
 
-            while (0 !== currentIndex) {
+          while (0 !== currentIndex) {
 
-              randomIndex = Math.floor(Math.random() * currentIndex);
-              currentIndex -= 1;
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
 
-              temporaryValue = array[currentIndex];
-              array[currentIndex] = array[randomIndex];
-              array[randomIndex] = temporaryValue;
-            }
-
-            return array;
-          },
-
-          get: function (){
-            addMines.shuffle(mineArray);
-            mineArray = mineArray.splice(1,10)
-            return mineArray
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
           }
 
-        };
-      })();
+          return array;
+        }
 
-      var mineArray = addMines.get()
+        function get(){
+          shuffle(mineArray);
+          mineArray = mineArray.splice(1,10)
+          return mineArray
+        }
+        addMines.get = get;
+      };
 
-      var detectBombs  = (function () {
-        return function () {
 
-          $(".divTableCell").on("click", function(){
-            for (var i=0;i<mineArray.length;i++) {
-              if ( $(this).attr("data") == mineArray[i] ) {
-                for (var j = 0;j<81;j++) {
-                  $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
-                  .addClass('open mine').removeClass("closed fa-flag")
-                  $('*[data="' + j + '"]').addClass('open').removeClass("closed")
-                  clearInterval(timer)
-                }
+      //  var mineArray = addMines.get()
+
+      function detectBombs() {
+
+
+        $(".divTableCell").on("click", function(){
+          for (var i=0;i<mineArray.length;i++) {
+            if ( $(this).attr("data") == mineArray[i] ) {
+              for (var j = 0;j<81;j++) {
+                $('*[data="' + mineArray[j] + '"]').html('<i class="fa fa-bomb" aria-hidden="true"></i>')
+                .addClass('open mine').removeClass("closed fa-flag")
+                $('*[data="' + j + '"]').addClass('open').removeClass("closed")
+                clearInterval(timer)
               }
             }
-          })
-        };
-      })();
+          }
+        })
 
-      var distanceToMine = (function () {
+      }
+
+      var distanceToMine = function distanceToMine() {
 
         //The following code to find mathcing array values was taken from this answer:
         //https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
@@ -193,21 +190,21 @@ function timer(){
 
             }
 
-            return {
-
-              distance: function (){
-                return arr;
-              }
 
 
-            };
-          })();
+            function distance(){
+              return arr;
+            }
+
+
+
+          }
 
           var click = 0;
           var id;
           var openCells = [];
 
-          var distanceToMineArray = distanceToMine.distance();
+          //  var distanceToMineArray = distanceToMine.distance();
 
           var revealCells = (function () {
 
