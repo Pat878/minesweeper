@@ -11,7 +11,7 @@ startGame();
 
 
 var gameOn = false;
-var timer;
+var timer, level;
 
 function startGame(){
   if (gameOn == false){
@@ -25,6 +25,18 @@ function startGame(){
     $(".top").show()
     $(".well").hide()
     timer()
+  })
+  $("#easy").on('click', function(){
+    level = "easy";
+    console.log(level)
+  })
+  $("#medium").on('click', function(){
+    level = "medium";
+    console.log(level)
+  })
+  $("#hard").on('click', function(){
+    level = "hard";
+    console.log(level)
   })
 }
 
