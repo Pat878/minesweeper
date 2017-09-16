@@ -61,7 +61,6 @@ function timer(){
 
     if (level == "easy"){
       row = 9;
-
     }
     else if (level == "medium"){
       row = 12;
@@ -116,7 +115,6 @@ function timer(){
 
       function detectBombs() {
 
-
         $(".divTableCell").on("click", function(){
           for (var i=0;i<mineArray.length;i++) {
             if ( $(this).attr("data") == mineArray[i] ) {
@@ -132,7 +130,7 @@ function timer(){
 
       }
 
-      var distanceToMine = function distanceToMine() {
+      function distanceToMine() {
 
         //The following code to find mathcing array values was taken from this answer:
         //https://stackoverflow.com/questions/12433604/how-can-i-find-matching-values-in-two-arrays
@@ -190,13 +188,9 @@ function timer(){
 
             }
 
-
-
             function distance(){
               return arr;
             }
-
-
 
           }
 
@@ -218,7 +212,6 @@ function timer(){
                 var leftBorder = [0,9,18,27,36,45,54,63,72]
                 var rightBorder = [8,17,26,35,44,53,62,71,80]
 
-
                 if ( distanceToMineArray[theNumber] > 0 && $(this).hasClass('number') !== true
                 && $(this).hasClass('mine') !== true && $(this).hasClass("fa-flag") == false) {
                   $(this).addClass("open number").append(distanceToMineArray[theNumber]).removeClass("closed") }
@@ -230,7 +223,6 @@ function timer(){
                     var thisCell = parseInt(theNumber);
                     if (thisCell > 0 && thisCell < 81 && openCells.includes(thisCell) == false) {
                       openCells.push(thisCell) }
-
 
                       function reveal() {  for (var i=0;i<numbers.length;i++) {
 
@@ -291,9 +283,7 @@ function timer(){
                       };
                     })();
 
-
                     var addFlag  = (function () {
-
 
                       return function () {
 
@@ -312,7 +302,6 @@ function timer(){
                             }
                             $(".flag-number").html(10 - parseInt($(".fa-flag").length) )
                           });
-
 
                         }
 
