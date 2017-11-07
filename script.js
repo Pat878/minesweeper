@@ -4,8 +4,8 @@ $(document).ready(function(){
   //revealCells();
   //addFlag();
   //checkWin();
-  //  newGame();
-  screenWidth();
+    newGame();
+//  screenWidth();
   startGame();
 })
 
@@ -348,5 +348,5 @@ function timer(){
                             $(".container").show()
                             location.reload()
                           }
-                        });
+                        })
                       }
